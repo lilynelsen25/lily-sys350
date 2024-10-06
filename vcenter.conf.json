@@ -1,0 +1,6 @@
+{ "vcenter": [
+    {
+        "vcenterhost" : "vcenter.lily.local",
+        "vcenteradmin" : "administrator@lily.local"
+    }]
+}
