@@ -2,29 +2,40 @@
 from pyVmomi import vim
 import vm_connect
 
-info = vm_connect.content
+def vmDetails(VMList):
+    print()
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print("VM Names:")
+    vm_connect.si.RetrieveContent()
+    datacenter = vm_connect.si.content.rootFolder.childEntity[0]
+    VMList = datacenter.vmFolder.childEntity
+    for vm in VMList:
+        print([vm.name])
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    searchvm = str(input("Enter VM Name (Leave blank if none):"))
 
-def GetInfo(info,InfoType):
-    obj = {}
-    Container = info.viewManager.CreateContainerView(info.rootFolder, InfoType, True)
-    for MInfo in Container.view:
-        obj.update({MInfo:MInfo.name})
-        return obj
-    
-    GetVMs = GetInfo(info,[vim.VirtualMachine])
-
-    def vmDetails(VMList):
-        print()
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        print("VM Names:")
+    if(searchvm):
         for vm in VMList:
-            print(vm.name)
-        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-        searchvm = str(input("Enter VM Name (Leave blank if none):"))
+            if(vm.name == searchvm):
+                memory = int(vm.config.hardware.memoryMB) / 1024
+                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                print("Name: " + vm.name)
+                print(f"IP Address: {vm.guest.ipAddress}")
+                print("Power: " + vm.runtime.powerState)
+                print(f"CPU: {vm.config.hardware.numCPU}")
+                print(f"Memory(GB): {memory}")
+                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            else:
+                print("Please choose a valid VM.") 
+                continue         
 
-        if(searchvm):
-            for vm in VMList:
-                if(vm.name == searchvm):
-                    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-                    print("Name: " + vm.name)
-                    print("IP Address: " + vm.guest.ipAddress)
+def vmList(VMList):
+    vm_connect.si.RetrieveContent()
+    datacenter = vm_connect.si.content.rootFolder.childEntity[0]
+    VMList = datacenter.vmFolder.childEntity
+    print()
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~") 
+    print("VM Names:")
+    for vm in VMList:
+        print(vm.name)
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~")

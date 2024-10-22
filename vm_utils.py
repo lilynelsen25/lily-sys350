@@ -2,38 +2,35 @@
 # More help form Beth Chadbourne
 # https://github.com/vmware/pyvmomi-community-samples/blob/master/samples/getallvms.py
 
-import getpass
-import json
-import socket 
-
-
-# Getting hostname/IP address
-def ipaddress():
-    hostname = socket.gethostname()
-
+import vm_connect
+import vm_session
+import vm_info
 
 def menu():
     print("[1] VCenter Info")
     print("[2] Session Details")
     print("[3] VM Details")
-    print("[4] Exit the Program")
+    print("[0] Exit the Program")
 
 menu()
 option = int(input("Enter your option:"))
 
-while option != 4:
+while option != 0:
     if option == 1:
-        
+        print()
+        print("vCenter Info Selected")
+        print()
+        vm_connect.vcenterConnect()
         pass
     elif option == 2:
-        file = open('vcenter.conf.json')
-        data = json.load(file)
-        print(data['vcenter'][0]['vcenterhost'])
-        print(data['vcenter'][0]['vcenteradmin'])
+        print()
+        print("Session Details Selected")
+        print()
+        vm_session.vmsession
         pass
     elif option == 3:
         print("List of Selectable VMs:")
-
+        vm_info.vmDetails(vm_info.vmList)
         pass
     else:
         print("Invalid option.")
@@ -41,5 +38,5 @@ while option != 4:
     print()
     menu()
     option = int(input("Enter your option:"))
-file.close()
+
 print("Thank you for using this program, goodbye.")
