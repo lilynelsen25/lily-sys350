@@ -1,5 +1,5 @@
 # Help from Willow O'Hara :3
-# More help form Beth Chadbourne
+# More (a lot more) help form Beth Chadbourne
 # https://github.com/vmware/pyvmomi-community-samples/blob/master/samples/getallvms.py
 
 import vm_connect

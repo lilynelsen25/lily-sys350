@@ -1,6 +1,6 @@
 { "vcenter.lily.local": [
     {
         "vcenterhost" : "vcenter.lily.local",
-        "vcenteradmin" : "administrator@lily.local"
+        "vcenteradmin" : "administrator@vsphere.local"
     }]
 }
